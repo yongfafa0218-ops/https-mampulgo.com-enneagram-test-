@@ -95,7 +95,7 @@ export default function Quiz() {
       <div className="min-h-[100dvh] overflow-x-hidden bg-gradient-to-br from-slate-50 to-slate-100 flex items-start sm:items-center justify-center px-4 py-6 sm:p-8">
         <Card className="w-full max-w-md p-6 sm:p-8 text-center shadow-lg">
           <div className="mb-6">
-            <img src="/manus-storage/mampulgo-logo_33f11573.png" alt="맘풀고" className="w-48 h-48 mx-auto mb-4" />
+            <img src="/mampulgo/characters/로고3.png" alt="맘풀고" className="w-48 h-48 mx-auto mb-4" />
           </div>
           <h1 className="text-3xl font-bold text-slate-900 mb-4">안녕하세요!</h1>
           <p className="text-slate-700 mb-8 leading-relaxed">

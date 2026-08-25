@@ -104,6 +104,11 @@ export const ResultCardHTML = React.forwardRef<HTMLDivElement, ResultCardHTMLPro
         <div style="opacity:.4;text-align:center;line-height:1.4;color:${colorTheme.hex};font-size:clamp(7px,1.6vw,9px)">${disclaimer}</div>
       </div>`;
 
+      // GitHub/Netlify에 포함된 로컬 캐릭터 이미지 사용
+      const localCharacterPath = (ENNEAGRAM_DATA.characters as any)[String(topType)]?.[0]
+        ? `/mampulgo/${(ENNEAGRAM_DATA.characters as any)[String(topType)][0]}`
+        : '/mampulgo/characters/01_perfect/01_perfect_01.png';
+
       // 카드 HTML 생성 (Centered 레이아웃)
       const cardHTML = `
         <div style="position:absolute;inset:0;z-index:0;background:${colorTheme.hex}"></div>
@@ -118,7 +123,7 @@ export const ResultCardHTML = React.forwardRef<HTMLDivElement, ResultCardHTMLPro
           </div>
           <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:2% 8% 0;gap:3%;overflow:hidden">
             <div style="flex:0 0 32%;width:100%;display:flex;justify-content:center;position:relative">
-              <img style="display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.12));max-height:100%;width:65%;border-radius:12px" src="/mampulgo/characters/${String(topType).padStart(2, '0')}_${typeInfo.name.toLowerCase()}_01.png" alt=""/>
+              <img style="display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.12));max-height:100%;width:65%;border-radius:12px" src="${localCharacterPath}" alt=""/>
             </div>
             <div style="width:100%;text-align:center;align-items:center;display:flex;flex-direction:column;gap:4%;overflow:hidden">
               <div style="font-weight:700;line-height:1.5;opacity:.85;color:#FFFFFF;font-size:clamp(12px,2.6vw,14px)">${typeInfo.basicInterpretation.split('\n')[0]}</div>

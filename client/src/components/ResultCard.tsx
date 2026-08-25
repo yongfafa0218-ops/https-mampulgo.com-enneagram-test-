@@ -42,37 +42,12 @@ export const ResultCard = forwardRef<HTMLDivElement, ResultCardProps>(
     // 캐릭터 이미지 (마운트 시 1회만 결정)
     const charIndex = useMemo(() => Math.floor(Math.random() * 3), []);
     
-    // S3 업로드된 실제 이미지 경로 매핸
-    const imagePathMap: Record<string, Record<string, string[]>> = {
-      'female': {
-        '1': ['/manus-storage/female_1_reformer_01_d4facb5e.png', '/manus-storage/female_1_reformer_02_e2969652.png', '/manus-storage/female_1_reformer_03_278eb1b9.png'],
-        '2': ['/manus-storage/female_2_helper_01_7547d090.png', '/manus-storage/female_2_helper_02_9c608b63.png', '/manus-storage/female_2_helper_03_80f15544.png'],
-        '3': ['/manus-storage/female_3_achiever_01_2ddb5b66.png', '/manus-storage/female_3_achiever_02_a7241808.png', '/manus-storage/female_3_achiever_03_35eb26b2.png'],
-        '4': ['/manus-storage/female_4_romantic_01_8e7bd209.png', '/manus-storage/female_4_romantic_02_ff25da27.png', '/manus-storage/female_4_romantic_03_78cdae15.png'],
-        '5': ['/manus-storage/female_5_investigator_01_b18c5f2b.png', '/manus-storage/female_5_investigator_02_e6aea9fd.png', '/manus-storage/female_5_investigator_03_e8b98b5f.png'],
-        '6': ['/manus-storage/female_6_loyalist_01_c48dcf15.png', '/manus-storage/female_6_loyalist_02_0d615c7e.png', '/manus-storage/female_6_loyalist_03_f1e9c0b9.png'],
-        '7': ['/manus-storage/female_7_enthusiast_01_d03265c8.png', '/manus-storage/female_7_enthusiast_02_233e35e3.png', '/manus-storage/female_7_enthusiast_03_98bd625d.png'],
-        '8': ['/manus-storage/female_8_challenger_01_c97dbbda.png', '/manus-storage/female_8_challenger_02_04262468.png', '/manus-storage/female_8_challenger_03_31dce6ad.png'],
-        '9': ['/manus-storage/female_9_peacemaker_01_4bc63dd2.png', '/manus-storage/female_9_peacemaker_02_6042f8f0.png', '/manus-storage/female_9_peacemaker_03_32521c36.png'],
-      },
-      'male': {
-        '1': ['/manus-storage/male_1_reformer_01_bf65b4be.png', '/manus-storage/male_1_reformer_02_98fad074.png', '/manus-storage/male_1_reformer_03_1cc6f622.png'],
-        '2': ['/manus-storage/male_2_helper_01_3d6fcbac.png', '/manus-storage/male_2_helper_02_7e9433d0.png', '/manus-storage/male_2_helper_03_e491888f.png'],
-        '3': ['/manus-storage/male_3_achiever_01_228069d8.png', '/manus-storage/male_3_achiever_02_1148f3b1.png', '/manus-storage/male_3_achiever_03_0aab111d.png'],
-        '4': ['/manus-storage/male_4_romantic_01_d7387243.png', '/manus-storage/male_4_romantic_02_16cc14d7.png', '/manus-storage/male_4_romantic_03_86cc8e1c.png'],
-        '5': ['/manus-storage/male_5_investigator_01_0217f715.png', '/manus-storage/male_5_investigator_02_6c7fd43c.png', '/manus-storage/male_5_investigator_03_e8b89849.png'],
-        '6': ['/manus-storage/male_6_loyalist_01_2f86db87.png', '/manus-storage/male_6_loyalist_02_f05e958c.png', '/manus-storage/male_6_loyalist_03_f2cae0cb.png'],
-        '7': ['/manus-storage/male_7_enthusiast_01_6a8c1e67.png', '/manus-storage/male_7_enthusiast_02_eab0e97a.png', '/manus-storage/male_7_enthusiast_03_cd122f45.png'],
-        '8': ['/manus-storage/male_8_challenger_01_eae4410c.png', '/manus-storage/male_8_challenger_02_556bbcf2.png', '/manus-storage/male_8_challenger_03_c45b561a.png'],
-        '9': ['/manus-storage/male_9_peacemaker_01_52175e60.png', '/manus-storage/male_9_peacemaker_02_8021f6d9.png', '/manus-storage/male_9_peacemaker_03_407733e8.png'],
-      }
-    };
-
-    // 성별별 이미지 선택 (모든 유형에 양쪽 성별 이미지 있음)
-    const selectedGender = gender || 'male';
-    const genderImages = imagePathMap[selectedGender];
-    const typeImages = genderImages?.[highestType];
-    const mainCharPath = typeImages?.[charIndex] || '/manus-storage/characters/01_perfect_01.png';
+    // GitHub/Netlify에 포함된 로컬 이미지 사용
+    // 현재 백업본에는 성별별 파일이 아니라 유형별 캐릭터 3개가 포함되어 있다.
+    const typeImages = ENNEAGRAM_DATA.characters[highestType].map(
+      (path) => `/mampulgo/${path}`
+    );
+    const mainCharPath = typeImages[charIndex] || '/mampulgo/characters/01_perfect/01_perfect_01.png';
 
     // 유형별 색상 (차트용)
     const typeColors: Record<string, string> = {

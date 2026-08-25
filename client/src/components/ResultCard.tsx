@@ -42,12 +42,25 @@ export const ResultCard = forwardRef<HTMLDivElement, ResultCardProps>(
     // 캐릭터 이미지 (마운트 시 1회만 결정)
     const charIndex = useMemo(() => Math.floor(Math.random() * 3), []);
     
-    // GitHub/Netlify에 포함된 로컬 이미지 사용
-    // 현재 백업본에는 성별별 파일이 아니라 유형별 캐릭터 3개가 포함되어 있다.
-    const typeImages = ENNEAGRAM_DATA.characters[highestType].map(
-      (path) => `/mampulgo/${path}`
+    // GitHub/Netlify에 포함된 남녀별 로컬 이미지 사용
+    const selectedGender = gender || 'male';
+    const typeNames: Record<EnneagramType, string> = {
+      '1': 'perfect',
+      '2': 'helper',
+      '3': 'achiever',
+      '4': 'romantic',
+      '5': 'investigator',
+      '6': 'loyalist',
+      '7': 'enthusiast',
+      '8': 'challenger',
+      '9': 'peacemaker',
+    };
+    const typeNum = String(highestType).padStart(2, '0');
+    const typeName = typeNames[highestType];
+    const typeImages = [1, 2, 3].map((number) =>
+      `/mampulgo/characters/${typeNum}_${typeName}/${selectedGender}_${typeNum}_${typeName}_${String(number).padStart(2, '0')}.png`
     );
-    const mainCharPath = typeImages[charIndex] || '/mampulgo/characters/01_perfect/01_perfect_01.png';
+    const mainCharPath = typeImages[charIndex] || `/mampulgo/characters/${typeNum}_${typeName}/${selectedGender}_${typeNum}_${typeName}_01.png`;
 
     // 유형별 색상 (차트용)
     const typeColors: Record<string, string> = {
